@@ -86,7 +86,7 @@ def main():
 				if startButton.release(event.pos):
 					play = True
 		
-		music.play()
+		
 		
 		bgColor = r,g,b
 		screen.fill(bgColor)
@@ -195,6 +195,8 @@ def main():
 		pygame.display.flip()
  
 		clock.tick(60)
+		
+		#music.play()
 	
 		
 
