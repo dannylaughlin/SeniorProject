@@ -9,7 +9,7 @@ class Ball(pygame.sprite.Sprite):
  
 		super(Ball, self).__init__()
  
-		self.image = pygame.image.load("Ball.png")
+		self.image = pygame.image.load("Misc/Ball.png")
 		
 		self.rect = self.image.get_rect()
 		self.rect.y = y

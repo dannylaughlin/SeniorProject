@@ -21,6 +21,8 @@ TEAL = (0, 255, 255)
 
 
 
+
+
  
 def main():
  
@@ -59,18 +61,24 @@ def main():
 	
 	win = False
 	play = False
-	die = False
 	
 	
 	bgColor = r,g,b = 100, 255, 80
 	bgImage = pygame.image.load("Screens/New Screen.png").convert()
 	bgRect = bgImage.get_rect()
 	
+	bgQuitImage = pygame.image.load("Screens/Quit Screen.png").convert()
+	bgQuitRect = bgImage.get_rect()
+	
 	startButton = Button([400, 400], 
 					 "Buttons/Start Base.png", 
 					 "Buttons/Start Clicked.png")
-	
-	
+					 
+	quitButton = Button([400, 300], 
+					 "Buttons/Quit Base.png", 
+					 "Buttons/Quit Clicked.png")
+
+
 	pygame.mixer.init()
 	music = pygame.mixer.Sound("Lavender Remix (Normal Speed).wav")
 	
@@ -122,11 +130,17 @@ def main():
 				if event.key == pygame.K_DOWN:
 					player.changespeed(0, -5)
  
+ 
 		# --- Game Logic ---
  
 		player.move(current_room.wall_list, current_room.ball_list)
 		for ball in current_room.ball_list:
 			ball.move(current_room.wall_list)
+			
+		for winblock in current_room.winblock_list:
+			col = pygame.sprite.collide_rect(player, winblock)
+			if col == True:
+				win = True
 		
 		player.image.fill((randint(0,255),randint(0,255),randint(0,255)))
 		
@@ -169,7 +183,6 @@ def main():
 				current_room_no = 4
 				current_room = rooms[current_room_no]
 				player.rect.x = 0
-				die = True
 			else:
 				current_room_no = 1
 				current_room = rooms[current_room_no]
@@ -185,6 +198,8 @@ def main():
 		# --- Music ---
 		
 		
+		#music.play()
+		
 		
 		# --- Drawing ---
 		screen.fill(BLACK)
@@ -192,13 +207,31 @@ def main():
 		movingsprites.draw(screen)
 		current_room.wall_list.draw(screen)
 		current_room.ball_list.draw(screen)
+		current_room.winblock_list.draw(screen)
 		pygame.display.flip()
  
 		clock.tick(60)
-		
-		#music.play()
 	
+	while win:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT: sys.exit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_RETURN:
+					sys.exit()
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				quitButton.click(event.pos)
+			if event.type == pygame.MOUSEBUTTONUP:
+				if quitButton.release(event.pos):
+					sys.exit()
 		
+		
+		
+		bgColor = r,g,b
+		screen.fill(bgColor)
+		screen.blit(bgQuitImage, bgQuitRect)
+		screen.blit(quitButton.image, quitButton.rect)
+		pygame.display.flip()
+		clock.tick(60)	
 
  
 if __name__ == "__main__":

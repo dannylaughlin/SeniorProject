@@ -29,6 +29,7 @@ class Player(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.y = y
 		self.rect.x = x
+		self.invincible = False
  
 	def changespeed(self, x, y):
 		
@@ -59,4 +60,6 @@ class Player(pygame.sprite.Sprite):
 				
 		ball_hit_list = pygame.sprite.spritecollide(self, balls, False)
 		for ball in ball_hit_list:
-			self.living = False	
+			if not self.invincible: 
+				self.living = False	
+

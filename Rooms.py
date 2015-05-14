@@ -3,6 +3,7 @@ from Ball import *
 from Wall import *
 from Player import *
 from Coin import *
+from Winblock import *
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -17,12 +18,12 @@ TEAL = (0, 255, 255)
 class Room(object):
 	wall_list = None
 	ball_list = None
-	coin_list = None
+	winblock_list = None
  
 	def __init__(self):
 		self.wall_list = pygame.sprite.Group()
 		self.ball_list = pygame.sprite.Group()
-		self.coin_list = pygame.sprite.Group()
+		self.winblock_list = pygame.sprite.Group()
  
  
 class Room1(Room):
@@ -189,8 +190,81 @@ class Room5(Room):
 				 [0, 350, 20, 250, WHITE],
 				 [780, 0, 20, 600, WHITE],
 				 [20, 0, 760, 20, WHITE],
-				 [20, 580, 760, 20, WHITE]
+				 [20, 580, 760, 20, WHITE],
+				 [100, 130, 620 , 20, RED],
+				 [100, 450, 620 , 20, RED]
 				]
+			
+		winblocks = [(720, 270, 60, 60)
+					]
+		
+ 		for x in range(100, 800, 100):
+			for y in range(150, 451, 200):
+				wall = Wall(x, y, 20, 100, RED)
+				self.wall_list.add(wall)
+		
+		#Middle
+				
+		for x in range(120, 700, 100):
+			ball = Ball(x, 240, [0, 4])
+			self.ball_list.add(ball)
+		
+		for x in range(140, 700, 100):
+			ball = Ball(x, 280, [0, 4])
+			self.ball_list.add(ball)
+				
+		for x in range(160, 700, 100):
+			ball = Ball(x, 320, [0, 4])
+			self.ball_list.add(ball)
+			
+		for x in range(180, 800, 100):
+			ball = Ball(x, 360, [0, 4])
+			self.ball_list.add(ball)
+		
+		#Top
+			
+		for y in range(20, 115, 45):
+			ball = Ball(400, y, [3, 0])
+			self.ball_list.add(ball)
+		
+		for x in range(100, 700, 100):
+			ball = Ball(x, 20, [0,-3])
+			self.ball_list.add(ball)
+		
+		for x in range(120, 700, 100):
+			ball = Ball(x, 60, [0,-3])
+			self.ball_list.add(ball)
+		
+		for x in range(140, 700, 100):
+			ball = Ball(x, 100, [0,-3])
+			self.ball_list.add(ball)
+		
+		for x in range(160, 700, 100):
+			ball = Ball(x, 110, [0,3])
+			self.ball_list.add(ball)
+		
+		#Bottom
+		
+		for y in range(470, 580, 45):
+			ball = Ball(400, y, [3, 0])
+			self.ball_list.add(ball)
+			
+		for x in range(100, 700, 100):
+			ball = Ball(x, 470, [0,-3])
+			self.ball_list.add(ball)
+		
+		for x in range(120, 700, 100):
+			ball = Ball(x, 510, [0,-3])
+			self.ball_list.add(ball)
+		
+		for x in range(140, 700, 100):
+			ball = Ball(x, 550, [0,-3])
+			self.ball_list.add(ball)
+		
+		for x in range(160, 700, 100):
+			ball = Ball(x, 560, [0,3])
+			self.ball_list.add(ball)
+ 
  
 		for item in walls:
 			wall = Wall(item[0], item[1], item[2], item[3], item[4])
@@ -199,3 +273,9 @@ class Room5(Room):
 		for item in balls:
 			ball = Ball(item[0], item[1], item[2])
 			self.ball_list.add(ball)
+		
+		for item in winblocks:
+			winblock = Winblock(item[0], item[1], item[2], item[3])
+			self.winblock_list.add(winblock)
+		
+		
